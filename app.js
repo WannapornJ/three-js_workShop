@@ -29,6 +29,9 @@ addPage('/ar-model', 'AR-Model');
 addPage('/ar-dino', 'ARDino');
 addPage('/vr-dino', 'VRDino');
 addPage('/test', 'Test');
+addPage('/a1', 'a1');
+addPage('/a2', 'a2');
+addPage('/a3', 'a3');
 
 app.listen(port, () => {
 	console.log("Starting server. PORT:"+port);
