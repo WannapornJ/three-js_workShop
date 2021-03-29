@@ -28,6 +28,7 @@ const boxMaterial = new MeshBasicMaterial({
 	color: 0xffffff,
 	map: textureLoder.load("textures/basicBox.jpg")
 });
+//use same geometry, material and box quantity
 const mesh = new InstancedMesh(boxGeometry, boxMaterial, 100000);
 
 const matrix = new Matrix4();

@@ -1,15 +1,13 @@
+//ANCHOR shadow
 import {
   WebGLRenderer,
   Scene,
   PerspectiveCamera,
   Color,
   SphereGeometry,
-  BoxGeometry,
   MeshStandardMaterial,
   Mesh,
   PlaneGeometry,
-  TextureLoader,
-  TorusGeometry,
   PointLight,
   DirectionalLight,
   PCFSoftShadowMap,
@@ -19,11 +17,14 @@ import { OrbitControls } from "/three/tools/jsm/controls/OrbitControls.js";
 
 const renderer = new WebGLRenderer({ antialias: true });
 renderer.setSize(window.innerWidth, window.innerHeight);
+//NOTE assign type of shadow
 renderer.shadowMap.type = PCFSoftShadowMap;
+// enable to use shadow when render
 renderer.shadowMap.enabled = true;
 
 document.body.appendChild(renderer.domElement);
 const scene = new Scene();
+//NOTE blend horizon edge with scene color
 scene.fog = new FogExp2(0x202020, 0.02);
 
 scene.background = new Color(0x202020);
@@ -36,14 +37,15 @@ const camera = new PerspectiveCamera(
 camera.position.set(8, 8, 8);
 camera.lookAt(0, 0, 0);
 
-// const Torus = new TorusGeometry(10, 0.4, 16, 50, 6.3);
-
+//NOTE MeshStandardMaterial depend on lighting
 const sphereGeometry = new SphereGeometry(1, 32, 32);
 const sphereMaterial = new MeshStandardMaterial({
   color: 0xffff00,
+  //value of brightening
   emissive: 0xffff00,
 });
 const sphere = new Mesh(sphereGeometry, sphereMaterial);
+//detect this obj shadow and this attribute can inheritance to child
 sphere.castShadow = true;
 
 const wed = sphere.clone();
@@ -88,11 +90,15 @@ const planeGeometry = new PlaneGeometry(100, 100);
 const planeMaterial = new MeshStandardMaterial({ color: 0xffffff });
 const floor = new Mesh(planeGeometry, planeMaterial);
 floor.castShadow = false;
+//show detected shadow on this obj
 floor.receiveShadow = true;
 floor.rotation.x = -deg(90);
 floor.position.y = -1;
 
+//NOTE create light
+//point light
 const lighter = new PointLight(0x8f2f00, 2, 20);
+//directional light
 const directionalLighter = new DirectionalLight(0xffffff, 0.1);
 directionalLighter.position.set(0, 15, 0);
 directionalLighter.castShadow = true;
@@ -111,6 +117,7 @@ scene.add(
 let init = 0,
   initMoon = 0;
 
+  //NOTE control camera angle on the scene
 const controls = new OrbitControls(camera, renderer.domElement);
 
 const updateFrame = () => {

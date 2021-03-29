@@ -1,21 +1,22 @@
+//ANCHOR Labs transition
 import {
   WebGLRenderer,
   Scene,
   PerspectiveCamera,
   Color,
   SphereGeometry,
-  BoxGeometry,
   MeshBasicMaterial,
   Mesh,
-  PlaneGeometry,
-  TextureLoader,
 } from "/three/build/three.module.js";
 
 const renderer = new WebGLRenderer({ antialias: true });
 renderer.setSize(window.innerWidth, window.innerHeight);
+
 document.body.appendChild(renderer.domElement);
+
 const scene = new Scene();
 scene.background = new Color(0x202020);
+
 const camera = new PerspectiveCamera(
   60,
   window.innerWidth / window.innerHeight,
@@ -25,16 +26,18 @@ const camera = new PerspectiveCamera(
 camera.position.set(8, 8, 8);
 camera.lookAt(0, 0, 0);
 
-const Torus = new TorusGeometry(10, 0.4, 16, 50, 6.3)
+// const Torus = new TorusGeometry(10, 0.4, 16, 50, 6.3)
 
 const sphereGeometry = new SphereGeometry(1, 32, 32);
 const sphereMaterial = new MeshBasicMaterial({ color: 0xffff00 });
 const sphere = new Mesh(sphereGeometry, sphereMaterial);
-
+// NOTE clone obj method
 const wed = sphere.clone();
 const wedMaterial = new MeshBasicMaterial({ color: 0x00f690 });
+// scale inherit from parent
 wed.scale.set(0.1, 0.1, 0.1);
 wed.position.x = 2;
+// implement material to new obj
 wed.material = wedMaterial;
 
 const venus = sphere.clone();
